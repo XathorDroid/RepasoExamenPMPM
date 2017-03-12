@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/miSeeContact"
+        android:title="@string/miSeeContact"/>
+    <item
+        android:id="@+id/miEditContact"
+        android:title="@string/miEditContact"/>
+    <item
+        android:id="@+id/miDelContact"
+        android:title="@string/miDelContact"/>
+</menu>

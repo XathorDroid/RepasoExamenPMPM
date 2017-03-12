@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/miNew"
+        android:icon="@drawable/plus_circle"
+        android:title="@string/miNew"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/miDel"
+        android:icon="@drawable/delete_circle"
+        android:title="@string/miDel"
+        app:showAsAction="collapseActionView"/>
+
+    <item
+        android:id="@+id/miSetting"
+        android:icon="@drawable/settings"
+        android:title="@string/miSetting"
+        app:showAsAction="collapseActionView"/>
+</menu>

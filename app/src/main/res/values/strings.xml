@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">RepasoExamen</string>
+    <string name="activity_2">Nuevo Contacto</string>
+    <string name="activity_3">Opciones</string>
+
+    <string name="newContact">Agregar Primer Contacto</string>
+    <string name="name">Nombre</string>
+    <string name="tlf">Nº Teléfono</string>
+    <string name="email">Email</string>
+    <string name="save">Guardar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="ok">Ok</string>
+
+    <string name="miNew">Nuevo</string>
+    <string name="miDel">Eliminar BD</string>
+    <string name="miSetting">Opciones</string>
+
+    <string name="miDelContact">Eliminar Contacto</string>
+    <string name="miSeeContact">Ver Datos</string>
+    <string name="miEditContact">Editar Datos</string>
+
+    <string name="error1">Introduzca un Nombre</string>
+    <string name="error2">Introduzca un Nº de Teléfono</string>
+    <string name="error3">Introduzca un Email</string>
+    <string name="duplicateTlf">Ya hay registrado un Contacto a ese Número</string>
+
+    <string name="delBD">Eliminación de la BD</string>
+    <string name="delBDMsg">¿Está usted seguro de eliminar la Base de Datos?\nUna vez lo haga perderá todos sus datos y no podrá volver a atrás</string>
+
+    <string name="delContact">Eliminación de Contacto</string>
+    <string name="delContactMsg">¿Está usted seguro de eliminar al contacto?\nUna vez lo haga perderá su referencia y no podrá volver a verlo en su lista de contactos</string>
+
+    <string name="set1_1">Aplicación Creada Por:</string>
+    <string name="set1_2">Andrés M. del Río Raíz</string>
+    <string name="set2_1">Objetivo:</string>
+    <string name="set2_2">Aplicar en una APP todo \nlo aprendido</string>
+    <string name="set3_1">Versión:</string>
+    <string name="set3_2">1.0</string>
+</resources>

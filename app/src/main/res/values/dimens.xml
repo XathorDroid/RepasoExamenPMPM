@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dimensiones Textos -->
+    <dimen name="size19sp">19sp</dimen>
+
+    <!-- Dimensiones Vistas -->
+    <dimen name="size10dp">10dp</dimen>
+    <dimen name="size16dp">16dp</dimen>
+</resources>
