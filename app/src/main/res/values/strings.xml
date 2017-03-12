@@ -3,6 +3,8 @@
     <string name="activity_2">Nuevo Contacto</string>
     <string name="activity_3">Opciones</string>
 
+    <string name="userNo">Sin Usuario</string>
+
     <string name="newContact">Agregar Primer Contacto</string>
     <string name="name">Nombre</string>
     <string name="tlf">Nº Teléfono</string>
@@ -14,6 +16,7 @@
     <string name="miNew">Nuevo</string>
     <string name="miDel">Eliminar BD</string>
     <string name="miSetting">Opciones</string>
+    <string name="miChangeUser">Cambiar Usuario</string>
 
     <string name="miDelContact">Eliminar Contacto</string>
     <string name="miSeeContact">Ver Datos</string>
@@ -26,6 +29,7 @@
 
     <string name="delBD">Eliminación de la BD</string>
     <string name="delBDMsg">¿Está usted seguro de eliminar la Base de Datos?\nUna vez lo haga perderá todos sus datos y no podrá volver a atrás</string>
+    <string name="delBDOk">Base de Datos Vaciada...</string>
 
     <string name="delContact">Eliminación de Contacto</string>
     <string name="delContactMsg">¿Está usted seguro de eliminar al contacto?\nUna vez lo haga perderá su referencia y no podrá volver a verlo en su lista de contactos</string>

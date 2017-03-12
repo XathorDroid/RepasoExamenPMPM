@@ -18,4 +18,10 @@
         android:icon="@drawable/settings"
         android:title="@string/miSetting"
         app:showAsAction="collapseActionView"/>
+
+    <item
+        android:id="@+id/miChangeUser"
+        android:icon="@drawable/account"
+        android:title="@string/miChangeUser"
+        app:showAsAction="collapseActionView"/>
 </menu>

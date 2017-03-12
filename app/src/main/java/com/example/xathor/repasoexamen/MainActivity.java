@@ -3,8 +3,10 @@ package com.example.xathor.repasoexamen;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -28,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btnFirstContact;
     private ListView lvContacts;
+    private EditText etNewUser;
 
     private ArrayList<Contact> contacts;
 
@@ -38,10 +43,13 @@ public class MainActivity extends AppCompatActivity {
     private MyDbHelper myDbHelper;
     private SQLiteDatabase myDb;
 
+    private SharedPreferences myPreferences;
+
     private static final int NEWCONTACT = 1;
     private static final String NAMEDB = "Contacts";
     private static final int VERSIONDB = 1;
 
+    private String dbCreate = "CREATE TABLE Contacts (tlf CHAR(15) PRIMARY KEY, name VARCHAR(30) NOT NULL, email VARCHAR(50) NOT NULL, icon INTEGER NOT NULL)";
     private String dbDrop = "DROP TABLE IF EXISTS Contacts";
     private String delContact;
 
@@ -51,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initialize();
+        loadPreferences();
         loadList();
 
         registerForContextMenu(lvContacts);
@@ -120,6 +129,19 @@ public class MainActivity extends AppCompatActivity {
                 Intent iSett = new Intent(MainActivity.this, Main3Activity.class);
                 startActivity(iSett);
                 return true;
+            case R.id.miChangeUser:
+                AlertDialog.Builder dialogChangeUser = new AlertDialog.Builder(MainActivity.this);
+                dialogChangeUser.setIcon(getDrawable(R.drawable.account));
+                dialogChangeUser.setTitle(getString(R.string.miChangeUser));
+                etNewUser = new EditText(MainActivity.this);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT);
+                etNewUser.setLayoutParams(lp);
+                dialogChangeUser.setView(etNewUser);
+                dialogChangeUser.setPositiveButton(getString(R.string.ok), saveUser);
+                dialogChangeUser.create().show();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -167,6 +189,14 @@ public class MainActivity extends AppCompatActivity {
 
         adapter = new PersonalizeAdapter(MainActivity.this, contacts);
         lvContacts.setAdapter(adapter);
+
+    }
+
+    public void loadPreferences() {
+        myPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+
+        String user = myPreferences.getString("user", getString(R.string.userNo));
+        this.setTitle(user);
     }
 
     public void loadList() {
@@ -211,7 +241,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(DialogInterface dialog, int which) {
             myDb.execSQL(dbDrop);
-            Toast.makeText(MainActivity.this, "Base de Datos Eliminada...", Toast.LENGTH_SHORT).show();
+            myDb.execSQL(dbCreate);
+            Toast.makeText(MainActivity.this, getString(R.string.delBDOk), Toast.LENGTH_SHORT).show();
             adapter.clear();
             btnFirstContact.setVisibility(View.VISIBLE);
             lvContacts.setVisibility(View.GONE);
@@ -224,6 +255,19 @@ public class MainActivity extends AppCompatActivity {
             myDb.delete("Contacts", "tlf = '"+delContact+"'", null);
             Toast.makeText(MainActivity.this, "Contacto "+delContact+" eliminado...", Toast.LENGTH_SHORT).show();
             loadList();
+        }
+    };
+
+    public DialogInterface.OnClickListener saveUser = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            String newUser = etNewUser.getText().toString();
+
+            SharedPreferences.Editor editor = myPreferences.edit();
+            editor.putString("user", newUser);
+            editor.apply();
+
+            loadPreferences();
         }
     };
 
