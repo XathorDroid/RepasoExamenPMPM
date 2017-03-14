@@ -58,42 +58,61 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Método propio donde inicializo las variables y las vistas
         initialize();
+        // Método propio donde recupero las Preferencias Compartidas
+        // En este caso recupero un nombre de usuario que pongo como título en la ActionBar
         loadPreferences();
+        // Método propio que carga de la Base de Datos, si no está vacía, la lista de contactos
+        // a una ListView
         loadList();
 
+        // Método necesario para establecer un Menú Contextual a una vista
+        // registerForContextMenu(nombre_de_la_vista);
         registerForContextMenu(lvContacts);
 
+        // Método asignado al botón principal que aparece cuando la lista de contactos está vacía
         btnFirstContact.setOnClickListener(newContact);
     }
 
+    // En este método Sobreescrito recuperas el Intent con los datos que le añades
+    // En la segunda actividad
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == NEWCONTACT) {
-            if(resultCode == RESULT_OK) {
+        // NEWCONTACT es el atributo FINAL que uso como bandera para recibir los datos
+        if(requestCode == NEWCONTACT) { 
+            // RESULT_OK valor predefinido de Android que indica que se devolvieron los datos sin problema
+            if(resultCode == RESULT_OK) { 
+                // Recupero del Intent un objeto de la clase Contact
                 Contact contact = (Contact)data.getSerializableExtra("contact");
+                // Creo un ContentValues para darle los valores del Contacto nuevo que guardaré en la BD
                 ContentValues newValue = new ContentValues();
                 newValue.put("tlf", contact.getTlf());
                 newValue.put("name", contact.getName());
                 newValue.put("email", contact.getMail());
                 newValue.put("icon", contact.getIcon());
 
+                // Si caseOp (una bandera enviada a la Actividad2) vale 1, indica que estoy modificando, y antes
+                // de guardar el contacto nuevo, lo elimino de la BD
                 if(data.getExtras().getInt("caseOp") == 1) {
                     myDb.delete("Contacts", "tlf = '"+data.getStringExtra("tlfOld")+"'", null);
                 }
-
-                myDb.insert("Contacts", null, newValue);
+                // Me acabo de dar cuenta que en vez de eliminar e insertar podía hacer un update xD
+                myDb.insert("Contacts", null, newValue); 
+                // Vuelvo a cargar la lista en la ListView
                 loadList();
             }
         }
     }
 
+    // Creo el Menú que aparece en la ActionBar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.settingsmenu, menu);
         return true;
     }
 
+    // Creo el Menú Contextual que usaré con cada elemento de la ListView
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -101,11 +120,14 @@ public class MainActivity extends AppCompatActivity {
 
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.contextmenu, menu);
+        // Establezco como Cabecera del menú el nombre del Contacto seleccionado
         menu.setHeaderTitle(((Contact)lvContacts.getAdapter().getItem(info.position)).getName());
+        // Guardo en variables datos del Contacto seleccionado para usar más adelante
         delContact = ((Contact) lvContacts.getAdapter().getItem(info.position)).getTlf();
         contactSelected = (Contact)lvContacts.getAdapter().getItem(info.position);
     }
 
+    // Establezco las funciones a realizar en cada opción del Menú de la ActionBar según la que se escoja
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
